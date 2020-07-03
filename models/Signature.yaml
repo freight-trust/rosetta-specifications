@@ -13,24 +13,24 @@
 # limitations under the License.
 
 description: |
-  Transactions contain an array of Operations
-  that are attributable to the same TransactionIdentifier.
+  Signature contains the payload that was signed, the public keys of the
+  keypairs used to produce the signature, the signature (encoded in hex),
+  and the SignatureType.
+
+  PublicKey is often times not known during construction of the signing payloads
+  but may be needed to combine signatures properly.
 type: object
 required:
-  - transaction_identifier
-  - operations
+  - signing_payload
+  - public_key
+  - signature_type
+  - hex_bytes
 properties:
-  transaction_identifier:
-    $ref: 'TransactionIdentifier.yaml'
-  operations:
-    type: array
-    items:
-      $ref: 'Operation.yaml'
-  metadata:
-    description: |
-      Transactions that are related to other transactions (like a cross-shard transaction) should include
-      the tranaction_identifier of these transactions in the metadata.
-    type: object
-    example:
-      size: 12378
-      lockTime: 1582272577
+  signing_payload:
+    $ref: "SigningPayload.yaml"
+  public_key:
+    $ref: "PublicKey.yaml"
+  signature_type:
+    $ref: "SignatureType.yaml"
+  hex_bytes:
+    type: string
