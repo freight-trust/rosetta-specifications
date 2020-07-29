@@ -14,7 +14,7 @@
 # limitations under the License.
 
 OS="$(uname)"
-case "${OS}" in
+case "$OS" in
     'Linux')
         OS='linux'
         SED_IFLAG=(-i'')
@@ -24,7 +24,7 @@ case "${OS}" in
         SED_IFLAG=(-i '')
         ;;
     *)
-        echo "Operating system '${OS}' not supported."
+        echo "Operating system '$OS' not supported."
         exit 1
         ;;
 esac
@@ -32,9 +32,9 @@ esac
 OUTPUT_FILE=api.json
 
 # Bundle yaml
-swagger-cli bundle api.yaml -o "${OUTPUT_FILE}";
+swagger-cli bundle api.yaml -o "$OUTPUT_FILE";
 
 # Remove newlines from descriptions
-sed "${SED_IFLAG[@]}" 's/\\n\\n/\\n/g' "${OUTPUT_FILE}"; 
-sed "${SED_IFLAG[@]}" 's/\\n/ /g' "${OUTPUT_FILE}"; 
-sed "${SED_IFLAG[@]}" 's/ "/"/g' "${OUTPUT_FILE}";
+sed "${SED_IFLAG[@]}" 's/\\n\\n/\\n/g' "$OUTPUT_FILE"; 
+sed "${SED_IFLAG[@]}" 's/\\n/ /g' "$OUTPUT_FILE"; 
+sed "${SED_IFLAG[@]}" 's/ "/"/g' "$OUTPUT_FILE";
