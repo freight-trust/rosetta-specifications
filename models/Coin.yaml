@@ -21,6 +21,6 @@ required:
   - amount
 properties:
   coin_identifier:
-    $ref: 'CoinIdentifier.yaml'
+    $ref: "CoinIdentifier.yaml"
   amount:
-    $ref: 'Amount.yaml'
+    $ref: "Amount.yaml"

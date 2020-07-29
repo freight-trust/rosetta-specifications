@@ -16,7 +16,7 @@ description: |
   CoinIdentifier uniquely identifies a Coin.
 type: object
 required:
-  - identifier 
+  - identifier
 properties:
   identifier:
     description: |

@@ -22,12 +22,12 @@ description: |
   both account-based transfers and UTXO-based transfers on the
   same blockchain (when a transfer is account-based, don't
   populate this model).
-type: object 
+type: object
 required:
   - coin_identifier
   - coin_action
 properties:
   coin_identifier:
-    $ref: 'CoinIdentifier.yaml'
+    $ref: "CoinIdentifier.yaml"
   coin_action:
-    $ref: 'CoinAction.yaml'
+    $ref: "CoinAction.yaml"

@@ -28,7 +28,7 @@ paths:
       description: |
         This endpoint returns a list of NetworkIdentifiers that the Rosetta
         server supports.
-      operationId: networkList 
+      operationId: networkList
       tags:
         - Network
       requestBody:
@@ -36,27 +36,27 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MetadataRequest'
+              $ref: "#/components/schemas/MetadataRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NetworkListResponse'
-        '500':
+                $ref: "#/components/schemas/NetworkListResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /network/status:
     post:
       summary: Get Network Status
       description: |
         This endpoint returns the current status of the network requested. Any
         NetworkIdentifier returned by /network/list should be accessible here.
-      operationId: networkStatus 
+      operationId: networkStatus
       tags:
         - Network
       requestBody:
@@ -64,20 +64,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NetworkRequest'
+              $ref: "#/components/schemas/NetworkRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NetworkStatusResponse'
-        '500':
+                $ref: "#/components/schemas/NetworkStatusResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /network/options:
     post:
       summary: Get Network Options
@@ -96,20 +96,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NetworkRequest'
+              $ref: "#/components/schemas/NetworkRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NetworkOptionsResponse'
-        '500':
+                $ref: "#/components/schemas/NetworkOptionsResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /block:
     post:
       summary: Get a Block
@@ -135,20 +135,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BlockRequest'
+              $ref: "#/components/schemas/BlockRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BlockResponse'
-        '500':
+                $ref: "#/components/schemas/BlockResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /block/transaction:
     post:
       summary: Get a Block Transaction
@@ -184,20 +184,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BlockTransactionRequest'
+              $ref: "#/components/schemas/BlockTransactionRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BlockTransactionResponse'
-        '500':
+                $ref: "#/components/schemas/BlockTransactionResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /mempool:
     post:
       summary: Get All Mempool Transactions
@@ -210,20 +210,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NetworkRequest'
+              $ref: "#/components/schemas/NetworkRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MempoolResponse'
-        '500':
+                $ref: "#/components/schemas/MempoolResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /mempool/transaction:
     post:
       summary: Get a Mempool Transaction
@@ -245,20 +245,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MempoolTransactionRequest'
+              $ref: "#/components/schemas/MempoolTransactionRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MempoolTransactionResponse'
-        '500':
+                $ref: "#/components/schemas/MempoolTransactionResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /account/balance:
     post:
       summary: Get an Account Balance
@@ -288,20 +288,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AccountBalanceRequest'
+              $ref: "#/components/schemas/AccountBalanceRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccountBalanceResponse'
-        '500':
+                $ref: "#/components/schemas/AccountBalanceResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /construction/derive:
     post:
       summary: Derive an Address from a PublicKey
@@ -318,20 +318,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstructionDeriveRequest'
+              $ref: "#/components/schemas/ConstructionDeriveRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstructionDeriveResponse'
-        '500':
+                $ref: "#/components/schemas/ConstructionDeriveResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /construction/preprocess:
     post:
       summary: Create a Request to Fetch Metadata
@@ -351,20 +351,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstructionPreprocessRequest'
+              $ref: "#/components/schemas/ConstructionPreprocessRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstructionPreprocessResponse'
-        '500':
+                $ref: "#/components/schemas/ConstructionPreprocessResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /construction/metadata:
     post:
       summary: Get Metadata for Transaction Construction
@@ -379,7 +379,7 @@ paths:
         any transactions for the client (this should happen in `/construction/payloads`).
         This endpoint is left purposely unstructured because of the wide scope
         of metadata that could be required.
-      operationId: constructionMetadata 
+      operationId: constructionMetadata
       tags:
         - Construction
       requestBody:
@@ -387,20 +387,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstructionMetadataRequest'
+              $ref: "#/components/schemas/ConstructionMetadataRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstructionMetadataResponse'
-        '500':
+                $ref: "#/components/schemas/ConstructionMetadataResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /construction/payloads:
     post:
       summary: Generate an Unsigned Transaction and Signing Payloads
@@ -424,20 +424,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstructionPayloadsRequest'
+              $ref: "#/components/schemas/ConstructionPayloadsRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstructionPayloadsResponse'
-        '500':
+                $ref: "#/components/schemas/ConstructionPayloadsResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /construction/combine:
     post:
       summary: Create Network Transaction from Signatures
@@ -455,20 +455,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstructionCombineRequest'
+              $ref: "#/components/schemas/ConstructionCombineRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstructionCombineResponse'
-        '500':
+                $ref: "#/components/schemas/ConstructionCombineResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /construction/parse:
     post:
       summary: Parse a Transaction
@@ -477,7 +477,7 @@ paths:
         understand the intent of the formulated transaction.
 
         This is run as a sanity check before signing (after `/construction/payloads`)
-        and before broadcast (after `/construction/combine`). 
+        and before broadcast (after `/construction/combine`).
       operationId: constructionParse
       tags:
         - Construction
@@ -486,20 +486,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstructionParseRequest'
+              $ref: "#/components/schemas/ConstructionParseRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstructionParseResponse'
-        '500':
+                $ref: "#/components/schemas/ConstructionParseResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /construction/hash:
     post:
       summary: Get the Hash of a Signed Transaction
@@ -514,20 +514,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstructionHashRequest'
+              $ref: "#/components/schemas/ConstructionHashRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionIdentifierResponse'
-        '500':
+                $ref: "#/components/schemas/TransactionIdentifierResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /construction/submit:
     post:
       summary: Submit a Signed Transaction
@@ -540,7 +540,7 @@ paths:
         The transaction submission response should only return a 200 status
         if the submitted transaction could be included in the mempool.
         Otherwise, it should return an error.
-      operationId: constructionSubmit 
+      operationId: constructionSubmit
       tags:
         - Construction
       requestBody:
@@ -548,81 +548,81 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConstructionSubmitRequest'
+              $ref: "#/components/schemas/ConstructionSubmitRequest"
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionIdentifierResponse'
-        '500':
+                $ref: "#/components/schemas/TransactionIdentifierResponse"
+        "500":
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     # Identifiers
     NetworkIdentifier:
-      $ref: 'models/NetworkIdentifier.yaml'
+      $ref: "models/NetworkIdentifier.yaml"
     SubNetworkIdentifier:
-      $ref: 'models/SubNetworkIdentifier.yaml'
+      $ref: "models/SubNetworkIdentifier.yaml"
     BlockIdentifier:
-      $ref: 'models/BlockIdentifier.yaml'
+      $ref: "models/BlockIdentifier.yaml"
     PartialBlockIdentifier:
-      $ref: 'models/PartialBlockIdentifier.yaml'
+      $ref: "models/PartialBlockIdentifier.yaml"
     TransactionIdentifier:
-      $ref: 'models/TransactionIdentifier.yaml'
+      $ref: "models/TransactionIdentifier.yaml"
     OperationIdentifier:
-      $ref: 'models/OperationIdentifier.yaml'
+      $ref: "models/OperationIdentifier.yaml"
     AccountIdentifier:
-      $ref: 'models/AccountIdentifier.yaml'
+      $ref: "models/AccountIdentifier.yaml"
     SubAccountIdentifier:
-      $ref: 'models/SubAccountIdentifier.yaml'
+      $ref: "models/SubAccountIdentifier.yaml"
 
     # Models
     Block:
-      $ref: 'models/Block.yaml'
+      $ref: "models/Block.yaml"
     Transaction:
-      $ref: 'models/Transaction.yaml'
+      $ref: "models/Transaction.yaml"
     Operation:
-      $ref: 'models/Operation.yaml'
+      $ref: "models/Operation.yaml"
     Amount:
-      $ref: 'models/Amount.yaml'
+      $ref: "models/Amount.yaml"
     Currency:
-      $ref: 'models/Currency.yaml'
+      $ref: "models/Currency.yaml"
     SyncStatus:
-      $ref: 'models/SyncStatus.yaml'
+      $ref: "models/SyncStatus.yaml"
     Peer:
-      $ref: 'models/Peer.yaml'
+      $ref: "models/Peer.yaml"
     Version:
-      $ref: 'models/Version.yaml'
+      $ref: "models/Version.yaml"
     Allow:
-      $ref: 'models/Allow.yaml'
+      $ref: "models/Allow.yaml"
     OperationStatus:
-      $ref: 'models/OperationStatus.yaml'
+      $ref: "models/OperationStatus.yaml"
     Timestamp:
-      $ref: 'models/Timestamp.yaml'
+      $ref: "models/Timestamp.yaml"
     PublicKey:
-      $ref: 'models/PublicKey.yaml'
+      $ref: "models/PublicKey.yaml"
     CurveType:
-      $ref: 'models/CurveType.yaml'
+      $ref: "models/CurveType.yaml"
     SigningPayload:
-      $ref: 'models/SigningPayload.yaml'
+      $ref: "models/SigningPayload.yaml"
     Signature:
-      $ref: 'models/Signature.yaml'
+      $ref: "models/Signature.yaml"
     SignatureType:
-      $ref: 'models/SignatureType.yaml'
+      $ref: "models/SignatureType.yaml"
     CoinAction:
-      $ref: 'models/CoinAction.yaml'
+      $ref: "models/CoinAction.yaml"
     CoinIdentifier:
-      $ref: 'models/CoinIdentifier.yaml'
+      $ref: "models/CoinIdentifier.yaml"
     CoinChange:
-      $ref: 'models/CoinChange.yaml'
+      $ref: "models/CoinChange.yaml"
     Coin:
-      $ref: 'models/Coin.yaml'
+      $ref: "models/Coin.yaml"
 
     # Request/Responses
     AccountBalanceRequest:
@@ -636,11 +636,11 @@ components:
         - account_identifier
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         account_identifier:
-          $ref: '#/components/schemas/AccountIdentifier'
+          $ref: "#/components/schemas/AccountIdentifier"
         block_identifier:
-          $ref: '#/components/schemas/PartialBlockIdentifier'
+          $ref: "#/components/schemas/PartialBlockIdentifier"
     AccountBalanceResponse:
       description: |
         An AccountBalanceResponse is returned on the /account/balance endpoint.
@@ -653,13 +653,13 @@ components:
         - balances
       properties:
         block_identifier:
-          $ref: '#/components/schemas/BlockIdentifier'
+          $ref: "#/components/schemas/BlockIdentifier"
         balances:
           type: array
           description: |
             A single account may have a balance in multiple currencies.
           items:
-            $ref: '#/components/schemas/Amount'
+            $ref: "#/components/schemas/Amount"
         coins:
           type: array
           description: |
@@ -668,7 +668,7 @@ components:
             populate this field so that users of the Rosetta API implementation
             don't need to maintain their own indexer to track their UTXOs.
           items:
-            $ref: '#/components/schemas/Coin'
+            $ref: "#/components/schemas/Coin"
         metadata:
           description: |
             Account-based blockchains that utilize a nonce or sequence number
@@ -687,9 +687,9 @@ components:
         - block_identifier
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         block_identifier:
-          $ref: '#/components/schemas/PartialBlockIdentifier'
+          $ref: "#/components/schemas/PartialBlockIdentifier"
     BlockResponse:
       description: |
         A BlockResponse includes a fully-populated block or a partially-populated
@@ -699,7 +699,7 @@ components:
         - block
       properties:
         block:
-          $ref: '#/components/schemas/Block'
+          $ref: "#/components/schemas/Block"
         other_transactions:
           description: |
             Some blockchains may require additional transactions to be fetched
@@ -710,7 +710,7 @@ components:
             transactions returned.
           type: array
           items:
-            $ref: '#/components/schemas/TransactionIdentifier'
+            $ref: "#/components/schemas/TransactionIdentifier"
     BlockTransactionRequest:
       description: |
         A BlockTransactionRequest is used to fetch a Transaction included in a
@@ -722,11 +722,11 @@ components:
         - transaction_identifier
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         block_identifier:
-          $ref: '#/components/schemas/BlockIdentifier'
+          $ref: "#/components/schemas/BlockIdentifier"
         transaction_identifier:
-          $ref: '#/components/schemas/TransactionIdentifier'
+          $ref: "#/components/schemas/TransactionIdentifier"
     BlockTransactionResponse:
       description: |
         A BlockTransactionResponse contains information about a block transaction.
@@ -735,7 +735,7 @@ components:
         - transaction
       properties:
         transaction:
-          $ref: '#/components/schemas/Transaction'
+          $ref: "#/components/schemas/Transaction"
     MempoolResponse:
       description: |
         A MempoolResponse contains all transaction identifiers in the mempool
@@ -747,7 +747,7 @@ components:
         transaction_identifiers:
           type: array
           items:
-            $ref: '#/components/schemas/TransactionIdentifier'
+            $ref: "#/components/schemas/TransactionIdentifier"
     MempoolTransactionRequest:
       description: |
         A MempoolTransactionRequest is utilized to retrieve a transaction
@@ -758,9 +758,9 @@ components:
         - transaction_identifier
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         transaction_identifier:
-          $ref: '#/components/schemas/TransactionIdentifier'
+          $ref: "#/components/schemas/TransactionIdentifier"
     MempoolTransactionResponse:
       description: |
         A MempoolTransactionResponse contains an estimate of a mempool
@@ -771,7 +771,7 @@ components:
         - transaction
       properties:
         transaction:
-          $ref: '#/components/schemas/Transaction'
+          $ref: "#/components/schemas/Transaction"
         metadata:
           type: object
           example:
@@ -796,7 +796,7 @@ components:
         network_identifiers:
           type: array
           items:
-            $ref: '#/components/schemas/NetworkIdentifier'
+            $ref: "#/components/schemas/NetworkIdentifier"
     NetworkRequest:
       description: |
         A NetworkRequest is utilized to retrieve some data specific exclusively
@@ -806,7 +806,7 @@ components:
         - network_identifier
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         metadata:
           type: object
     NetworkStatusResponse:
@@ -834,19 +834,19 @@ components:
         - peers
       properties:
         current_block_identifier:
-          $ref: '#/components/schemas/BlockIdentifier'
+          $ref: "#/components/schemas/BlockIdentifier"
         current_block_timestamp:
-          $ref: '#/components/schemas/Timestamp'
+          $ref: "#/components/schemas/Timestamp"
         genesis_block_identifier:
-          $ref: '#/components/schemas/BlockIdentifier'
+          $ref: "#/components/schemas/BlockIdentifier"
         oldest_block_identifier:
-          $ref: '#/components/schemas/BlockIdentifier'
+          $ref: "#/components/schemas/BlockIdentifier"
         sync_status:
-          $ref: '#/components/schemas/SyncStatus'
+          $ref: "#/components/schemas/SyncStatus"
         peers:
           type: array
           items:
-            $ref: '#/components/schemas/Peer'
+            $ref: "#/components/schemas/Peer"
     NetworkOptionsResponse:
       description: |
         NetworkOptionsResponse contains information about the versioning of the
@@ -857,9 +857,9 @@ components:
         - allow
       properties:
         version:
-          $ref: '#/components/schemas/Version'
+          $ref: "#/components/schemas/Version"
         allow:
-          $ref: '#/components/schemas/Allow'
+          $ref: "#/components/schemas/Allow"
     ConstructionMetadataRequest:
       description: |
         A ConstructionMetadataRequest is utilized to get information required
@@ -872,7 +872,7 @@ components:
         - options
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         options:
           description: |
             Some blockchains require different metadata for different types of
@@ -909,9 +909,9 @@ components:
         - public_key
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         public_key:
-          $ref: '#/components/schemas/PublicKey'
+          $ref: "#/components/schemas/PublicKey"
         metadata:
           type: object
     ConstructionDeriveResponse:
@@ -939,11 +939,11 @@ components:
         - operations
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         operations:
           type: array
           items:
-            $ref: '#/components/schemas/Operation'
+            $ref: "#/components/schemas/Operation"
         metadata:
           type: object
     ConstructionPreprocessResponse:
@@ -972,11 +972,11 @@ components:
         - operations
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         operations:
           type: array
           items:
-            $ref: '#/components/schemas/Operation'
+            $ref: "#/components/schemas/Operation"
         metadata:
           type: object
     ConstructionPayloadsResponse:
@@ -995,7 +995,7 @@ components:
         payloads:
           type: array
           items:
-            $ref: '#/components/schemas/SigningPayload'
+            $ref: "#/components/schemas/SigningPayload"
     ConstructionCombineRequest:
       description: |
         ConstructionCombineRequest is the input to the `/construction/combine`
@@ -1009,13 +1009,13 @@ components:
         - signatures
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         unsigned_transaction:
           type: string
         signatures:
           type: array
           items:
-            $ref: '#/components/schemas/Signature'
+            $ref: "#/components/schemas/Signature"
     ConstructionCombineResponse:
       description: |
         ConstructionCombineResponse is returned by `/construction/combine`.
@@ -1023,7 +1023,7 @@ components:
         `construction/submit` endpoint.
       type: object
       required:
-        - signed_transaction 
+        - signed_transaction
       properties:
         signed_transaction:
           type: string
@@ -1039,7 +1039,7 @@ components:
         - transaction
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         signed:
           type: boolean
           description: |
@@ -1063,7 +1063,7 @@ components:
         operations:
           type: array
           items:
-            $ref: '#/components/schemas/Operation'
+            $ref: "#/components/schemas/Operation"
         signers:
           description: |
             All signers of a particular transaction. If the transaction
@@ -1082,7 +1082,7 @@ components:
         - signed_transaction
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         signed_transaction:
           type: string
     ConstructionSubmitRequest:
@@ -1094,7 +1094,7 @@ components:
         - signed_transaction
       properties:
         network_identifier:
-          $ref: '#/components/schemas/NetworkIdentifier'
+          $ref: "#/components/schemas/NetworkIdentifier"
         signed_transaction:
           type: string
     TransactionIdentifierResponse:
@@ -1107,10 +1107,10 @@ components:
         - transaction_identifier
       properties:
         transaction_identifier:
-          $ref: '#/components/schemas/TransactionIdentifier'
+          $ref: "#/components/schemas/TransactionIdentifier"
         metadata:
           type: object
 
     # Miscellaneous
     Error:
-      $ref: 'models/Error.yaml'
+      $ref: "models/Error.yaml"
