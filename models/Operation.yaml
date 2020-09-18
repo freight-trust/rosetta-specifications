@@ -36,13 +36,12 @@ properties:
     items:
       $ref: 'OperationIdentifier.yaml'
     example:
-      - index: 0
-        operation_identifier:
-          index: 0
+      - index: 1
+      - index: 2
   type:
     description: |
       The network-specific type of the operation. Ensure that any type that can be returned here is also
-      specified in the NetworkStatus. This can be very useful to downstream consumers that parse all
+      specified in the NetworkOptionsResponse. This can be very useful to downstream consumers that parse all
       block data.
     type: string
     example: "Transfer"
@@ -59,6 +58,8 @@ properties:
     $ref: 'AccountIdentifier.yaml'
   amount:
     $ref: 'Amount.yaml'
+  coin_change:
+    $ref: 'CoinChange.yaml'
   metadata:
     type: object
     example:

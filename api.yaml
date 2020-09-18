@@ -14,7 +14,7 @@
 
 openapi: 3.0.2
 info:
-  version: 1.4.0
+  version: 1.4.4
   title: Rosetta
   description: |
     Build Once. Integrate Your Blockchain Everywhere.
@@ -44,7 +44,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NetworkListResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -72,7 +72,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NetworkStatusResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -104,7 +104,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NetworkOptionsResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -119,6 +119,14 @@ paths:
         include these transactions in the Block object. If not, an array of
         Transaction Identifiers should be returned so /block/transaction
         fetches can be done to get all transaction information.
+
+        When requesting a block by the hash component of the BlockIdentifier,
+        this request MUST be idempotent: repeated invocations for the same
+        hash-identified block must return the exact same block contents.
+
+        No such restriction is imposed when requesting a block by height,
+        given that a chain reorg event might cause the specific block at
+        height `n` to be set to a different one.
       operationId: block
       tags:
         - Block
@@ -135,7 +143,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BlockResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -153,6 +161,9 @@ paths:
         transactions returned by the /block method by consumers of this data.
         Fetching a transaction by hash is considered an Explorer Method
         (which is classified under the Future Work section).
+
+        This method can be used to let consumers to paginate results when the 
+        block trasactions count is too big to be returned in a single BlockResponse.
 
         Calling this endpoint requires reference to a BlockIdentifier because
         transaction parsing can change depending on which block contains the
@@ -181,7 +192,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BlockTransactionResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -207,7 +218,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MempoolResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -242,7 +253,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MempoolTransactionResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -285,7 +296,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountBalanceResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -293,9 +304,9 @@ paths:
                 $ref: '#/components/schemas/Error'
   /construction/derive:
     post:
-      summary: Derive an Address from a PublicKey
+      summary: Derive an AccountIdentifier from a PublicKey
       description: |
-        Derive returns the network-specific address associated with a public key.
+        Derive returns the AccountIdentifier associated with a public key.
 
         Blockchains that require an on-chain action to create an
         account should not implement this method.
@@ -315,7 +326,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConstructionDeriveResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -329,9 +340,11 @@ paths:
         request for any metadata that is needed for transaction construction
         given (i.e. account nonce).
 
-        The request returned from this method will be used by the caller (in a
-        different execution environment) to call the `/construction/metadata`
-        endpoint.
+        The `options` object returned from this endpoint will be sent to the `/construction/metadata`
+        endpoint UNMODIFIED by the caller (in an offline execution environment). If
+        your Construction API implementation has configuration options, they MUST
+        be specified in the `/construction/preprocess` request (in the `metadata`
+        field).
       operationId: constructionPreprocess
       tags:
         - Construction
@@ -348,7 +361,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConstructionPreprocessResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -361,8 +374,12 @@ paths:
         Get any information required to construct a transaction for a specific
         network. Metadata returned here could be a recent hash to use, an
         account sequence number, or even arbitrary chain state. The request
-        used when calling this endpoint is often created by calling
-        `/construction/preprocess` in an offline environment.
+        used when calling this endpoint is created by calling `/construction/preprocess`
+        in an offline environment.
+
+        You should NEVER assume that the request sent to this endpoint will be
+        created by the caller or populated with any custom parameters. This must
+        occur in `/construction/preprocess`.
 
         It is important to clarify that this endpoint should not pre-construct
         any transactions for the client (this should happen in `/construction/payloads`).
@@ -384,7 +401,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConstructionMetadataResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -397,7 +414,7 @@ paths:
         Payloads is called with an array of operations
         and the response from `/construction/metadata`. It returns an
         unsigned transaction blob and a collection of payloads that must
-        be signed by particular addresses using a certain SignatureType.
+        be signed by particular AccountIdentifiers using a certain SignatureType.
 
         The array of operations provided in transaction construction often times
         can not specify all "effects" of a transaction (consider invoked transactions
@@ -421,7 +438,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConstructionPayloadsResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -452,7 +469,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConstructionCombineResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -483,7 +500,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConstructionParseResponse'
-        default:
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -510,8 +527,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstructionHashResponse'
-        default:
+                $ref: '#/components/schemas/TransactionIdentifierResponse'
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -544,8 +561,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstructionSubmitResponse'
-        default:
+                $ref: '#/components/schemas/TransactionIdentifierResponse'
+        '500':
           description: unexpected error
           content:
             application/json:
@@ -582,6 +599,8 @@ components:
       $ref: 'models/Amount.yaml'
     Currency:
       $ref: 'models/Currency.yaml'
+    SyncStatus:
+      $ref: 'models/SyncStatus.yaml'
     Peer:
       $ref: 'models/Peer.yaml'
     Version:
@@ -602,6 +621,14 @@ components:
       $ref: 'models/Signature.yaml'
     SignatureType:
       $ref: 'models/SignatureType.yaml'
+    CoinAction:
+      $ref: 'models/CoinAction.yaml'
+    CoinIdentifier:
+      $ref: 'models/CoinIdentifier.yaml'
+    CoinChange:
+      $ref: 'models/CoinChange.yaml'
+    Coin:
+      $ref: 'models/Coin.yaml'
 
     # Request/Responses
     AccountBalanceRequest:
@@ -639,6 +666,15 @@ components:
             A single account may have a balance in multiple currencies.
           items:
             $ref: '#/components/schemas/Amount'
+        coins:
+          type: array
+          description: |
+            If a blockchain is UTXO-based, all unspent Coins owned by an account_identifier
+            should be returned alongside the balance. It is highly recommended to
+            populate this field so that users of the Rosetta API implementation
+            don't need to maintain their own indexer to track their UTXOs.
+          items:
+            $ref: '#/components/schemas/Coin'
         metadata:
           description: |
             Account-based blockchains that utilize a nonce or sequence number
@@ -664,9 +700,17 @@ components:
       description: |
         A BlockResponse includes a fully-populated block or a partially-populated
         block with a list of other transactions to fetch (other_transactions).
+
+        As a result of the consensus algorithm of some blockchains, blocks
+        can be omitted (i.e. certain block indexes can be skipped). If a query
+        for one of these omitted indexes is made, the response should not include
+        a `Block` object.
+
+        It is VERY important to note that blocks MUST still form a canonical,
+        connected chain of blocks where each block has a unique index. In other words,
+        the `PartialBlockIdentifier` of a block after an omitted block should
+        reference the last non-omitted block.
       type: object
-      required:
-        - block
       properties:
         block:
           $ref: '#/components/schemas/Block'
@@ -782,13 +826,20 @@ components:
     NetworkStatusResponse:
       description: |
         NetworkStatusResponse contains basic information about the node's
-        view of a blockchain network.
+        view of a blockchain network. It is assumed that any BlockIdentifier.Index
+        less than or equal to CurrentBlockIdentifier.Index can be queried.
 
         If a Rosetta implementation prunes historical state, it should
         populate the optional `oldest_block_identifier` field with the
         oldest block available to query. If this is not populated,
         it is assumed that the `genesis_block_identifier` is the oldest
         queryable block.
+
+        If a Rosetta implementation performs some pre-sync before it is
+        possible to query blocks, sync_status should be populated so that
+        clients can still monitor healthiness. Without this field, it may
+        appear that the implementation is stuck syncing and needs to be
+        terminated.
       type: object
       required:
         - current_block_identifier
@@ -804,6 +855,8 @@ components:
           $ref: '#/components/schemas/BlockIdentifier'
         oldest_block_identifier:
           $ref: '#/components/schemas/BlockIdentifier'
+        sync_status:
+          $ref: '#/components/schemas/SyncStatus'
         peers:
           type: array
           items:
@@ -827,6 +880,10 @@ components:
         to construct a transaction. The Options object used to specify which
         metadata to return is left purposely unstructured to allow flexibility
         for implementers.
+
+        Optionally, the request can also include an array
+        of PublicKeys associated with the AccountIdentifiers
+        returned in ConstructionPreprocessResponse.
       type: object
       required:
         - network_identifier
@@ -843,10 +900,20 @@ components:
             the client can populate an options object to limit the metadata
             returned to only the subset required.
           type: object
+        public_keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicKey'
     ConstructionMetadataResponse:
       description: |
         The ConstructionMetadataResponse returns network-specific metadata
         used for transaction construction.
+
+        Optionally, the implementer can return the suggested fee associated
+        with the transaction being constructed. The caller may use this info
+        to adjust the intent of the transaction or to create a transaction with
+        a different account that can pay the suggested fee. Suggested fee is an array
+        in case fee payment must occur in multiple currencies.
       type: object
       required:
         - metadata
@@ -856,6 +923,10 @@ components:
           example:
             account_sequence: 23
             recent_block_hash: "0x52bc44d5378309ee2abf1539bf71de1b7d7be3b5"
+        suggested_fee:
+          type: array
+          items:
+            $ref: '#/components/schemas/Amount'
     ConstructionDeriveRequest:
       description: |
         ConstructionDeriveRequest is passed to the `/construction/derive`
@@ -880,13 +951,13 @@ components:
         ConstructionDeriveResponse is returned by the `/construction/derive`
         endpoint.
       type: object
-      required:
-        - address
       properties:
         address:
           type: string
           description: |
-            Address in network-specific format.
+            [DEPRECATED by `account_identifier` in `v1.4.4`] Address in network-specific format.
+        account_identifier:
+          $ref: '#/components/schemas/AccountIdentifier'
         metadata:
           type: object
     ConstructionPreprocessRequest:
@@ -894,6 +965,29 @@ components:
         ConstructionPreprocessRequest is passed to the `/construction/preprocess`
         endpoint so that a Rosetta implementation can determine which
         metadata it needs to request for construction.
+
+        Metadata provided in this object should NEVER be a product
+        of live data (i.e. the caller must follow some network-specific
+        data fetching strategy outside of the Construction API to populate
+        required Metadata). If live data is required for construction, it MUST
+        be fetched in the call to `/construction/metadata`.
+
+        The caller can provide a max fee they are willing
+        to pay for a transaction. This is an array in the case fees
+        must be paid in multiple currencies.
+
+        The caller can also provide a suggested fee multiplier
+        to indicate that the suggested fee should be scaled.
+        This may be used to set higher fees for urgent transactions
+        or to pay lower fees when there is less urgency. It is assumed
+        that providing a very low multiplier (like 0.0001) will
+        never lead to a transaction being created with a fee
+        less than the minimum network fee (if applicable).
+
+        In the case that the caller provides both a max fee
+        and a suggested fee multiplier, the max fee will set an
+        upper bound on the suggested fee (regardless of the
+        multiplier provided).
       type: object
       required:
         - network_identifier
@@ -907,13 +1001,26 @@ components:
             $ref: '#/components/schemas/Operation'
         metadata:
           type: object
+        max_fee:
+          type: array
+          items:
+            $ref: '#/components/schemas/Amount'
+        suggested_fee_multiplier:
+          type: number
+          format: double
+          minimum: 0.0
     ConstructionPreprocessResponse:
       description: |
-        ConstructionPreprocessResponse contains the request that will
-        be sent directly to `/construction/metadata`.
+        ConstructionPreprocessResponse contains `options` that will
+        be sent unmodified to `/construction/metadata`. If it is
+        not necessary to make a request to `/construction/metadata`,
+        `options` should be omitted. 
 
-        If it is not necessary to make a request to `/construction/metadata`,
-        options should be null.
+        Some blockchains require the PublicKey of particular AccountIdentifiers
+        to construct a valid transaction. To fetch these PublicKeys, populate
+        `required_public_keys` with the AccountIdentifiers associated with the desired
+        PublicKeys. If it is not necessary to retrieve any PublicKeys
+        for construction, `required_public_keys` should be omitted.
       type: object
       properties:
         options:
@@ -921,12 +1028,20 @@ components:
           description: |
             The options that will be sent directly to `/construction/metadata` by
             the caller.
+        required_public_keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountIdentifier'
     ConstructionPayloadsRequest:
       description: |
         ConstructionPayloadsRequest is the request to
         `/construction/payloads`. It contains the network,
         a slice of operations, and arbitrary metadata
         that was returned by the call to `/construction/metadata`.
+
+        Optionally, the request can also include an array
+        of PublicKeys associated with the AccountIdentifiers
+        returned in ConstructionPreprocessResponse.
       type: object
       required:
         - network_identifier
@@ -940,6 +1055,10 @@ components:
             $ref: '#/components/schemas/Operation'
         metadata:
           type: object
+        public_keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicKey'
     ConstructionPayloadsResponse:
       description: |
         ConstructionTransactionResponse is returned by `/construction/payloads`. It
@@ -1019,7 +1138,6 @@ components:
       type: object
       required:
         - operations
-        - signers
       properties:
         operations:
           type: array
@@ -1027,11 +1145,15 @@ components:
             $ref: '#/components/schemas/Operation'
         signers:
           description: |
-            All signers of a particular transaction. If the transaction
+            [DEPRECATED by `account_identifier_signers` in `v1.4.4`] All signers (addresses) of a particular transaction. If the transaction
             is unsigned, it should be empty.
           type: array
           items:
             type: string
+        account_identifier_signers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountIdentifier'
         metadata:
           type: object
     ConstructionHashRequest:
@@ -1046,15 +1168,6 @@ components:
           $ref: '#/components/schemas/NetworkIdentifier'
         signed_transaction:
           type: string
-    ConstructionHashResponse:
-      description: |
-        ConstructionHashResponse is the output of the `/construction/hash` endpoint.
-      type: object
-      required:
-        - transaction_hash
-      properties:
-        transaction_hash:
-          type: string
     ConstructionSubmitRequest:
       description: |
         The transaction submission request includes a signed transaction.
@@ -1067,10 +1180,11 @@ components:
           $ref: '#/components/schemas/NetworkIdentifier'
         signed_transaction:
           type: string
-    ConstructionSubmitResponse:
+    TransactionIdentifierResponse:
       description: |
-        A TransactionSubmitResponse contains the transaction_identifier of a
-        submitted transaction that was accepted into the mempool.
+        TransactionIdentifierResponse contains the transaction_identifier of a
+        transaction that was submitted to either `/construction/hash` or
+        `/construction/submit`.
       type: object
       required:
         - transaction_identifier
